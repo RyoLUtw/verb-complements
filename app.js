@@ -11,6 +11,7 @@ const checkVerbsButton = document.querySelector('#checkVerbs');
 const resetVerbsButton = document.querySelector('#resetVerbs');
 const formMessage = document.querySelector('#formMessage');
 const backToTopButton = document.querySelector('#backToTop');
+const verbBankMore = document.querySelector('#verbBankMore');
 
 const hypothesisPanel = document.querySelector('#hypothesisPanel');
 const hypothesisScore = document.querySelector('#hypothesisScore');
@@ -112,15 +113,23 @@ const createTile = ({ id, title, subtitle, examples, onMainClick, onToggleClick 
 const syncVerbStateFromDOM = () => {
   const order = [];
   const zonesList = ['bank', 'ing', 'to', 'both'];
+  const seen = new Set();
   zonesList.forEach((zoneKey) => {
     const container = zones[zoneKey];
     container.querySelectorAll('.tile').forEach((tile) => {
       const verb = VERBS.find((item) => item.verb === tile.dataset.id);
       if (verb) {
         order.push(verb);
+        seen.add(verb.verb);
         state.verbZones[verb.verb] = zoneKey;
       }
     });
+  });
+  VERBS.forEach((verb) => {
+    if (!seen.has(verb.verb)) {
+      order.push(verb);
+      state.verbZones[verb.verb] = 'bank';
+    }
   });
   state.verbOrder = order;
 };
@@ -131,7 +140,11 @@ const renderVerbTiles = () => {
   zones.to.innerHTML = '';
   zones.both.innerHTML = '';
 
-  state.verbOrder.forEach((verb) => {
+  const bankVerbs = state.verbOrder.filter((verb) => (state.verbZones[verb.verb] || 'bank') === 'bank');
+  const bankToShow = bankVerbs.slice(0, 3);
+  const remainder = Math.max(bankVerbs.length - bankToShow.length, 0);
+
+  const renderTile = (verb, zoneKey) => {
     const tile = createTile({
       id: verb.verb,
       title: verb.verb,
@@ -147,8 +160,15 @@ const renderVerbTiles = () => {
     });
 
     addDragHandlers(tile, 'verb');
-    zones[state.verbZones[verb.verb] || 'bank'].appendChild(tile);
-  });
+    zones[zoneKey].appendChild(tile);
+  };
+
+  bankToShow.forEach((verb) => renderTile(verb, 'bank'));
+  state.verbOrder
+    .filter((verb) => (state.verbZones[verb.verb] || 'bank') !== 'bank')
+    .forEach((verb) => renderTile(verb, state.verbZones[verb.verb]));
+
+  verbBankMore.textContent = remainder > 0 ? `${remainder} more` : '';
 };
 
 const moveVerbTile = (verbId, targetZone) => {
@@ -158,6 +178,7 @@ const moveVerbTile = (verbId, targetZone) => {
       zones[targetZone].appendChild(tile);
     }
     syncVerbStateFromDOM();
+    renderVerbTiles();
     return;
   }
   state.verbZones[verbId] = targetZone;
