@@ -1,0 +1,391 @@
+:root {
+  color-scheme: light;
+  --bg: #f7f6f3;
+  --card: #ffffff;
+  --accent: #3f5b74;
+  --accent-light: #d9e5f1;
+  --muted: #5f6b76;
+  --border: #d3d8de;
+  --success: #2f7d32;
+  --warning: #b26a00;
+  --error: #a63a2b;
+  --focus: #264d73;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: var(--bg);
+  color: #1a2027;
+  line-height: 1.6;
+}
+
+.page-header {
+  padding: 32px 24px 12px;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+}
+
+h1 {
+  margin: 0 0 4px;
+  font-size: 2rem;
+}
+
+.subtitle {
+  color: var(--muted);
+  margin: 0;
+}
+
+main {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.section {
+  background: #fdfdfc;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  scroll-margin-top: 120px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.section.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.section-header h2 {
+  margin: 0 0 6px;
+}
+
+.instruction {
+  margin: 0 0 16px;
+  color: var(--muted);
+}
+
+.mini-nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  gap: 16px;
+  padding: 12px 24px;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+}
+
+.mini-nav a {
+  text-decoration: none;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.mini-nav a:focus-visible,
+button:focus-visible,
+select:focus-visible,
+.tile:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.back-to-top {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.back-to-top.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.form-layout,
+.checklist-layout {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 20px;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.drop-zone {
+  min-height: 180px;
+  border: 2px dashed var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.drop-zone.over {
+  border-color: var(--accent);
+  background: var(--accent-light);
+}
+
+.tile-bank {
+  background: #f8fafc;
+}
+
+.tile {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  cursor: grab;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tile .tile-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+}
+
+.tile-main {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+.tile-toggle {
+  padding: 4px 8px;
+  font-size: 0.8rem;
+}
+
+.tile-subtitle {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.tile-hint {
+  margin-top: 6px;
+}
+
+.tile .drawer {
+  display: none;
+  background: #f7f9fb;
+  border-radius: 8px;
+  padding: 8px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.tile.open .drawer {
+  display: block;
+}
+
+.tile.correct {
+  border-color: rgba(47, 125, 50, 0.6);
+  background: rgba(47, 125, 50, 0.08);
+}
+
+.tile.incorrect {
+  border-color: rgba(166, 58, 43, 0.5);
+  background: rgba(166, 58, 43, 0.08);
+}
+
+.tile.correct .tile-title::after {
+  content: "✅";
+  font-size: 1rem;
+}
+
+.tile.incorrect .tile-title::after {
+  content: "❌";
+  font-size: 1rem;
+}
+
+.tile.useful {
+  border: 1px solid rgba(47, 125, 50, 0.6);
+}
+
+.tile.distractor {
+  border: 1px solid rgba(178, 106, 0, 0.6);
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+button {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+button.ghost {
+  background: #fff;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.feedback {
+  margin-top: 12px;
+  color: var(--muted);
+}
+
+.tabs {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.tab {
+  background: #fff;
+  color: var(--accent);
+  border: 1px solid var(--border);
+}
+
+.tab.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+.hypothesis-panel,
+.context-panel {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.test-card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+  margin-top: 12px;
+  background: #f9fafb;
+}
+
+.test-card .buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.test-card button {
+  background: #fff;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+.test-card button.selected {
+  background: var(--accent);
+  color: #fff;
+}
+
+.mobile-target {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 0.95rem;
+  margin-bottom: 12px;
+}
+
+.helper,
+.hint {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.checklist-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.results {
+  margin-top: 16px;
+  padding: 12px;
+  background: #f7f9fb;
+  border-radius: 10px;
+}
+
+.context-panel .prompt {
+  font-weight: 600;
+  margin: 12px 0;
+}
+
+.radio-group {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.radio-group label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.reason-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.reason-buttons button {
+  background: #fff;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+.reason-buttons button.selected {
+  background: var(--accent);
+  color: #fff;
+}
+
+@media (max-width: 900px) {
+  .form-layout,
+  .checklist-layout {
+    grid-template-columns: 1fr;
+  }
+  .mini-nav {
+    flex-wrap: wrap;
+  }
+}
