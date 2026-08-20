@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Verb Complements: -ing vs to V</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="page-header" id="top">
+    <div>
+      <h1>Verb Complements: -ing vs to V</h1>
+      <p class="subtitle">Teacher-friendly practice for form, meaning, checklist building, and context.</p>
+    </div>
+  </header>
+
+  <nav class="mini-nav" aria-label="Section navigation">
+    <a href="#form">Form</a>
+    <a href="#meaning">Meaning</a>
+    <a href="#checklist">Checklist</a>
+    <a href="#context">Context</a>
+  </nav>
+
+  <button class="back-to-top" id="backToTop" type="button" aria-label="Back to top">↑ Top</button>
+
+  <main>
+    <section id="form" class="section">
+      <div class="section-header">
+        <h2>Form: Sort the verbs</h2>
+        <p class="instruction">Teacher prompt: Drag verbs into complement patterns. Click a verb to see examples.</p>
+      </div>
+      <div class="section-content">
+        <div class="mobile-target">
+          <label for="formTarget">Selected target:</label>
+          <select id="formTarget">
+            <option value="ing">Takes -ing</option>
+            <option value="to">Takes to V</option>
+            <option value="both">Can take both</option>
+          </select>
+          <span class="helper">Tap a verb tile to add to the selected column.</span>
+        </div>
+        <div class="form-layout">
+          <div>
+            <h3>Verb Bank</h3>
+            <div id="verbBank" class="tile-bank drop-zone" aria-label="Verb bank" data-zone="bank"></div>
+            <p id="verbBankMore" class="hint"></p>
+          </div>
+          <div class="columns">
+            <div class="drop-column">
+              <h3>Takes -ing</h3>
+              <div id="zone-ing" class="drop-zone" data-zone="ing" aria-label="Drop zone: Takes -ing"></div>
+            </div>
+            <div class="drop-column">
+              <h3>Takes to V</h3>
+              <div id="zone-to" class="drop-zone" data-zone="to" aria-label="Drop zone: Takes to V"></div>
+            </div>
+            <div class="drop-column">
+              <h3>Can take both</h3>
+              <div id="zone-both" class="drop-zone" data-zone="both" aria-label="Drop zone: Can take both"></div>
+            </div>
+          </div>
+        </div>
+        <div class="controls">
+          <button type="button" id="checkVerbs">Check answers</button>
+          <button type="button" id="resetVerbs" class="ghost">Reset</button>
+        </div>
+        <p id="formMessage" class="feedback" role="status"></p>
+      </div>
+    </section>
+
+    <section id="meaning" class="section">
+      <div class="section-header">
+        <h2>Meaning: Test hypotheses</h2>
+        <p class="instruction">Teacher prompt: Explore which rule explains the patterns best.</p>
+      </div>
+      <div class="section-content">
+        <div class="tabs" role="tablist" aria-label="Hypotheses">
+          <button type="button" class="tab active" data-tab="A" role="tab" aria-selected="true">Hypothesis A</button>
+          <button type="button" class="tab" data-tab="B" role="tab" aria-selected="false">Hypothesis B</button>
+          <button type="button" class="tab" data-tab="C" role="tab" aria-selected="false">Hypothesis C</button>
+        </div>
+        <div id="hypothesisPanel" class="hypothesis-panel"></div>
+        <div class="controls">
+          <button type="button" id="scoreHypothesis">Score this hypothesis</button>
+          <button type="button" id="chooseHypothesis" class="ghost">Choose as best hypothesis</button>
+        </div>
+        <p id="hypothesisScore" class="feedback" role="status"></p>
+        <p id="hypothesisResult" class="feedback" role="status"></p>
+      </div>
+    </section>
+
+    <section id="checklist" class="section disabled" aria-disabled="true">
+      <div class="section-header">
+        <h2>Checklist Builder</h2>
+        <p class="instruction">Teacher prompt: Build a 5-item checklist that supports meaning and verb pattern decisions.</p>
+      </div>
+      <div class="section-content">
+        <div class="mobile-target">
+          <label for="checklistTarget">Selected target:</label>
+          <select id="checklistTarget">
+            <option value="checklist">Add to checklist</option>
+            <option value="bank">Return to bank</option>
+          </select>
+          <span class="helper">Tap a tile to add/remove when drag is tricky.</span>
+        </div>
+        <div class="checklist-layout">
+          <div>
+            <h3>Question Tile Bank</h3>
+            <div id="checklistBank" class="tile-bank drop-zone" data-zone="bank" aria-label="Checklist tile bank"></div>
+          </div>
+          <div>
+            <div class="checklist-header">
+              <h3>My 5-item Quick Checklist</h3>
+              <span id="checklistCounter">0 / 5 selected</span>
+            </div>
+            <div id="checklistZone" class="drop-zone" data-zone="checklist" aria-label="Checklist drop zone"></div>
+            <p id="checklistFull" class="hint" role="status"></p>
+          </div>
+        </div>
+        <div class="controls">
+          <button type="button" id="validateChecklist" disabled>Validate checklist</button>
+          <button type="button" id="resetChecklist" class="ghost">Reset checklist</button>
+          <button type="button" id="toContext" class="ghost" disabled>Ready for Context Practice</button>
+        </div>
+        <div id="checklistResults" class="results"></div>
+        <p id="checklistSuggestion" class="hint"></p>
+      </div>
+    </section>
+
+    <section id="context" class="section">
+      <div class="section-header">
+        <h2>Context Rotation</h2>
+        <p class="instruction">Teacher prompt: Choose the complement and the reason tag that fits the context.</p>
+      </div>
+      <div class="section-content">
+        <div class="tabs" role="tablist" aria-label="Contexts">
+          <button type="button" class="tab active" data-context="busy" role="tab" aria-selected="true">Busy morning</button>
+          <button type="button" class="tab" data-context="apology" role="tab" aria-selected="false">Apology</button>
+          <button type="button" class="tab" data-context="nostalgia" role="tab" aria-selected="false">Nostalgia</button>
+          <button type="button" class="tab" data-context="work" role="tab" aria-selected="false">Work instruction</button>
+        </div>
+        <div id="contextPanel" class="context-panel"></div>
+        <button type="button" id="checkContext">Check</button>
+        <p id="contextFeedback" class="feedback" role="status"></p>
+      </div>
+    </section>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
